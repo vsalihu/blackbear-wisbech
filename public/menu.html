@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu | Blackbear Wisbech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1C9QX4TctnWMn13TZye+giMm8e2Lw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body data-page="menu">
+    <header>
+      <nav class="navbar">
+        <a href="index.html" class="navbar__brand" aria-label="Blackbear Wisbech home">
+          <span class="navbar__brand-logo">BB</span>
+          <span>Blackbear<br />Wisbech</span>
+        </a>
+        <button class="navbar__toggle" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="navbar__menu">
+          <ul>
+            <li><a class="nav-link" data-nav="home" href="index.html">Home</a></li>
+            <li class="has-dropdown">
+              <a class="nav-link" data-nav="menu" href="menu.html">Menu <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
+              <div class="nav-dropdown">
+                <a href="#food"><i class="fa-solid fa-bread-slice"></i> Food</a>
+                <a href="#drink"><i class="fa-solid fa-martini-glass"></i> Drink</a>
+              </div>
+            </li>
+            <li><a class="nav-link" data-nav="view-space" href="view-space.html">View Space</a></li>
+            <li><a class="nav-link" data-nav="events" href="events.html">Events</a></li>
+          </ul>
+          <div class="navbar__socials">
+            <a href="https://www.tiktok.com" aria-label="TikTok" target="_blank" rel="noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.instagram.com" aria-label="Instagram" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com" aria-label="Facebook" target="_blank" rel="noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="menu-hero" data-animate>
+        <div>
+          <span class="section__eyebrow">Menus</span>
+          <h1 class="section__title">
+            <span class="section__title-icon"><i class="fa-solid fa-utensils"></i></span>
+            <span class="section__title-text">From after-work plates to celebratory feasts</span>
+          </h1>
+          <p class="section__description">
+            Each season inspires a new story on the plate. Our kitchen celebrates East Anglian producers and open-fire techniques with a hint of continental flair.
+          </p>
+        </div>
+      </section>
+
+      <section class="section menu-section" id="food">
+        <div class="section__inner">
+          <div class="menu-section__intro" data-animate>
+            <p class="menu-section__tag">Food</p>
+            <h2 class="menu-section__heading">Thoughtful dishes from larder to hearth</h2>
+            <p class="menu-section__copy">
+              Start with shareable plates before moving to hearth-grilled mains and indulgent desserts. Vegetarian, vegan, and gluten-free highlights are thoughtfully crafted.
+            </p>
+          </div>
+          <div class="menu-grid">
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-bread-slice"></i></span>Barrel-aged sourdough</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-leaf"></i> Whipped cultured butter, smoked sea salt</span><span><i class="fa-solid fa-pound-sign"></i>6</span></div>
+              <p class="menu-card__description">Organic flour fermented for 72 hours and finished over open embers for a smoky crust.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-seedling"></i></span>Fenland beetroot carpaccio</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-leaf"></i> Hazelnut praline, goat's curd, micro sorrel</span><span><i class="fa-solid fa-pound-sign"></i>9</span></div>
+              <p class="menu-card__description">Earthy sweetness balanced with toasted nuts and a punchy balsamic glaze.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-utensils"></i></span>Charred Norfolk ribeye</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-fire"></i> Black garlic butter, truffled chips</span><span><i class="fa-solid fa-pound-sign"></i>26</span></div>
+              <p class="menu-card__description">Dry-aged for 35 days, kissed over charcoal, served with hand-cut chips and bone marrow gravy.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-fish"></i></span>Butter-poached North Sea cod</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-water"></i> Samphire, Champagne velouté</span><span><i class="fa-solid fa-pound-sign"></i>24</span></div>
+              <p class="menu-card__description">Silky cod paired with coastal herbs and a bright, airy sauce.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-leaf"></i></span>Wild mushroom pithivier</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-seedling"></i> Truffle jus, celeriac purée</span><span><i class="fa-solid fa-pound-sign"></i>19</span></div>
+              <p class="menu-card__description">Puff pastry filled with foraged mushrooms in a decadent, aromatic reduction.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-ice-cream"></i></span>Sticky toffee pudding</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-star"></i> Salted caramel, clotted cream</span><span><i class="fa-solid fa-pound-sign"></i>8</span></div>
+              <p class="menu-card__description">A Blackbear classic, light yet indulgent, finished with Maldon salt.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section menu-section" id="drink">
+        <div class="section__inner">
+          <div class="menu-section__intro" data-animate>
+            <p class="menu-section__tag">Drinks</p>
+            <h2 class="menu-section__heading">Cellar treasures & signature pours</h2>
+            <p class="menu-section__copy">
+              Our bar program explores craft beers, heritage ciders, low-intervention wines, and modern cocktails infused with house-made cordials.
+            </p>
+          </div>
+          <div class="menu-grid">
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-martini-glass"></i></span>The Blackbear Old Fashioned</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-fire"></i> Fenland honey, smoked bitters</span><span><i class="fa-solid fa-pound-sign"></i>12</span></div>
+              <p class="menu-card__description">A barrel-smoked twist on the classic with hints of charred orange and oak.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-martini-glass"></i></span>Wisbech Orchard Spritz</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-lemon"></i> Apple eau de vie, elderflower, prosecco</span><span><i class="fa-solid fa-pound-sign"></i>11</span></div>
+              <p class="menu-card__description">Effervescent, floral, and perfect for golden evenings on the terrace.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-beer-mug-empty"></i></span>Local cask rotation</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-beer-mug-empty"></i> Guest breweries each fortnight</span><span><i class="fa-solid fa-pound-sign"></i>6</span></div>
+              <p class="menu-card__description">Hand-picked cask ales showcasing East Anglia's finest small-batch brewers.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-droplet"></i></span>Zero-proof cedar martini</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-leaf"></i> Juniper distillate, cedar bitters</span><span><i class="fa-solid fa-pound-sign"></i>9</span></div>
+              <p class="menu-card__description">An aromatic spirit-free cocktail with alpine notes and crisp finish.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-wine-glass"></i></span>Sommelier's flight</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-star"></i> Three curated pours</span><span><i class="fa-solid fa-pound-sign"></i>18</span></div>
+              <p class="menu-card__description">Discover rare, low-intervention wines with tasting notes from our sommelier.</p>
+            </article>
+            <article class="menu-card" data-animate>
+              <h3 class="menu-card__title"><span class="menu-card__icon"><i class="fa-solid fa-mug-hot"></i></span>Single origin espresso</h3>
+              <div class="menu-card__meta"><span><i class="fa-solid fa-coffee"></i> Roasted by Old Market Roastery</span><span><i class="fa-solid fa-pound-sign"></i>3</span></div>
+              <p class="menu-card__description">Pulled on our La Marzocco Linea, served with complimentary dark chocolate.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <div class="navbar__brand" aria-hidden="true">
+            <span class="navbar__brand-logo">BB</span>
+            <span>Blackbear<br />Wisbech</span>
+          </div>
+          <p><i class="fa-solid fa-map-marker-alt"></i> 3 Old Market, Wisbech PE13 1NB</p>
+          <p><i class="fa-solid fa-clock"></i> Open Tuesday to Sunday from midday</p>
+        </div>
+        <div>
+          <p class="footer__title">Explore</p>
+          <ul class="footer__links">
+            <li><a href="menu.html"><i class="fa-solid fa-book-open"></i> Our Menus</a></li>
+            <li><a href="events.html"><i class="fa-solid fa-calendar-check"></i> Events Calendar</a></li>
+            <li><a href="view-space.html"><i class="fa-solid fa-image"></i> View The Space</a></li>
+            <li><a href="admin.html"><i class="fa-solid fa-key"></i> Admin Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__title">Connect</p>
+          <ul class="footer__links">
+            <li><a href="mailto:reservations@blackbearwisbech.co.uk"><i class="fa-solid fa-envelope"></i> reservations@blackbearwisbech.co.uk</a></li>
+            <li><a href="tel:+441945123456"><i class="fa-solid fa-phone"></i> 01945 123 456</a></li>
+            <li><a href="https://www.instagram.com" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.facebook.com" target="_blank" rel="noreferrer"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer__baseline">© <span id="year"></span> Blackbear Wisbech. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/menu.js"></script>
+  </body>
+</html>

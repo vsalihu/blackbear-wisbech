@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Portal | Blackbear Wisbech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1C9QX4TctnWMn13TZye+giMm8e2Lw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body data-page="admin">
+    <header>
+      <nav class="navbar">
+        <a href="index.html" class="navbar__brand" aria-label="Blackbear Wisbech home">
+          <span class="navbar__brand-logo">BB</span>
+          <span>Blackbear<br />Wisbech</span>
+        </a>
+        <button class="navbar__toggle" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="navbar__menu">
+          <ul>
+            <li><a class="nav-link" data-nav="home" href="index.html">Home</a></li>
+            <li class="has-dropdown">
+              <a class="nav-link" data-nav="menu" href="menu.html">Menu <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
+              <div class="nav-dropdown">
+                <a href="menu.html#food"><i class="fa-solid fa-bread-slice"></i> Food</a>
+                <a href="menu.html#drink"><i class="fa-solid fa-martini-glass"></i> Drink</a>
+              </div>
+            </li>
+            <li><a class="nav-link" data-nav="view-space" href="view-space.html">View Space</a></li>
+            <li><a class="nav-link" data-nav="events" href="events.html">Events</a></li>
+          </ul>
+          <div class="navbar__socials">
+            <a href="https://www.tiktok.com" aria-label="TikTok" target="_blank" rel="noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.instagram.com" aria-label="Instagram" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com" aria-label="Facebook" target="_blank" rel="noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="admin-page">
+      <div class="admin-layout" data-animate>
+        <section class="admin-card" id="eventsAdmin">
+          <header class="admin-card__header">
+            <h1 class="admin-card__title">
+              <span class="admin-card__title-icon"><i class="fa-solid fa-calendar-check"></i></span>
+              <span class="admin-card__title-text">Manage events</span>
+            </h1>
+            <p><i class="fa-solid fa-bullhorn"></i> Keep the calendar fresh for guests visiting the events page.</p>
+          </header>
+          <form class="admin-form" id="eventForm">
+            <input type="hidden" name="id" id="eventId" />
+            <div class="admin-form__group">
+              <label for="eventTitle"><i class="fa-solid fa-heading"></i> Title</label>
+              <input type="text" id="eventTitle" name="title" placeholder="Live Jazz Night" required />
+            </div>
+            <div class="admin-form__group">
+              <label for="eventDescription"><i class="fa-solid fa-align-left"></i> Description</label>
+              <textarea id="eventDescription" name="description" rows="3" placeholder="Describe what makes this event unmissable." required></textarea>
+            </div>
+            <div class="admin-form__group">
+              <label for="eventDate"><i class="fa-solid fa-calendar-day"></i> Date</label>
+              <input type="date" id="eventDate" name="date" required />
+            </div>
+            <div class="admin-form__group">
+              <label for="eventTime"><i class="fa-solid fa-clock"></i> Time</label>
+              <input type="time" id="eventTime" name="time" required />
+            </div>
+            <div class="admin-actions">
+              <button class="button" type="submit"><i class="fa-solid fa-calendar-plus"></i> <span id="eventSubmitLabel">Add Event</span></button>
+            </div>
+          </form>
+          <div class="admin-table" id="eventsTable"></div>
+        </section>
+
+        <section class="admin-card" id="galleryAdmin">
+          <header class="admin-card__header">
+            <h2 class="admin-card__title">
+              <span class="admin-card__title-icon"><i class="fa-solid fa-image"></i></span>
+              <span class="admin-card__title-text">Manage gallery</span>
+            </h2>
+            <p><i class="fa-solid fa-camera"></i> Add photos to the View Space page using hosted image URLs.</p>
+          </header>
+          <form class="admin-form" id="galleryForm">
+            <div class="admin-form__group">
+              <label for="galleryImage"><i class="fa-solid fa-link"></i> Image URL</label>
+              <input type="url" id="galleryImage" name="imageUrl" placeholder="https://" required />
+            </div>
+            <div class="admin-form__group">
+              <label for="galleryTitle"><i class="fa-solid fa-pen"></i> Caption</label>
+              <input type="text" id="galleryTitle" name="title" placeholder="Bar at golden hour (optional)" />
+            </div>
+            <div class="admin-actions">
+              <button class="button" type="submit"><i class="fa-solid fa-plus"></i> Add Image</button>
+            </div>
+          </form>
+          <div class="admin-table" id="galleryTable"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <div class="navbar__brand" aria-hidden="true">
+            <span class="navbar__brand-logo">BB</span>
+            <span>Blackbear<br />Wisbech</span>
+          </div>
+          <p><i class="fa-solid fa-map-marker-alt"></i> 3 Old Market, Wisbech PE13 1NB</p>
+          <p><i class="fa-solid fa-clock"></i> Open Tuesday to Sunday from midday</p>
+        </div>
+        <div>
+          <p class="footer__title">Explore</p>
+          <ul class="footer__links">
+            <li><a href="menu.html"><i class="fa-solid fa-book-open"></i> Our Menus</a></li>
+            <li><a href="events.html"><i class="fa-solid fa-calendar-check"></i> Events Calendar</a></li>
+            <li><a href="view-space.html"><i class="fa-solid fa-image"></i> View The Space</a></li>
+            <li><a href="admin.html"><i class="fa-solid fa-key"></i> Admin Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__title">Connect</p>
+          <ul class="footer__links">
+            <li><a href="mailto:reservations@blackbearwisbech.co.uk"><i class="fa-solid fa-envelope"></i> reservations@blackbearwisbech.co.uk</a></li>
+            <li><a href="tel:+441945123456"><i class="fa-solid fa-phone"></i> 01945 123 456</a></li>
+            <li><a href="https://www.instagram.com" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.facebook.com" target="_blank" rel="noreferrer"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer__baseline">© <span id="year"></span> Blackbear Wisbech. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/admin.js"></script>
+  </body>
+</html>

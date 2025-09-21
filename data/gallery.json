@@ -1,0 +1,26 @@
+[
+  {
+    "id": "5b8782b5-f627-40af-afac-e832c8fa29b3",
+    "imageUrl": "https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=1200&q=80",
+    "title": "Chefs finishing plates over the open kitchen pass",
+    "createdAt": "2024-06-02T12:00:00.000Z"
+  },
+  {
+    "id": "a6f6f5f9-3a07-4770-90f4-5a2c0ef5e41c",
+    "imageUrl": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1200&q=80",
+    "title": "Guests toasting at the illuminated cocktail bar",
+    "createdAt": "2024-06-03T12:00:00.000Z"
+  },
+  {
+    "id": "b47a1d25-26d5-4f0e-9ac5-f69ffb0c5bd6",
+    "imageUrl": "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80",
+    "title": "Banquette seating under soft pendant lighting",
+    "createdAt": "2024-06-04T12:00:00.000Z"
+  },
+  {
+    "id": "f08b5d75-6c5b-4c54-830a-3a4de03d2fde",
+    "imageUrl": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+    "title": "Locally sourced dishes plated to perfection",
+    "createdAt": "2024-06-06T12:00:00.000Z"
+  }
+]

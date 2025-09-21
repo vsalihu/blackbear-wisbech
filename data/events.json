@@ -1,0 +1,21 @@
+[
+  {
+    "id": "f40f29a6-1c9a-4b35-8dd7-f847e19a0d9b",
+    "title": "Live Jazz Night",
+    "description": "An intimate evening with the Fenland Jazz Collective. Candle-lit tables, seasonal cocktails, and smooth rhythms until late.",
+    "date": "3121-03-11",
+    "time": "20:00",
+    "dateTime": "3121-03-11T20:00:00.000Z",
+    "createdAt": "2024-06-01T19:00:00.000Z",
+    "updatedAt": "2025-09-21T15:35:27.291Z"
+  },
+  {
+    "id": "b3d8751c-6a8c-4f00-9a52-9cc647f87c39",
+    "title": "Harvest Feast",
+    "description": "A five-course tasting menu showcasing local Fenland produce with live acoustic folk.",
+    "date": "2024-10-12",
+    "time": "19:00",
+    "dateTime": "2024-10-12T19:00:00.000Z",
+    "createdAt": "2024-06-15T10:00:00.000Z"
+  }
+]
