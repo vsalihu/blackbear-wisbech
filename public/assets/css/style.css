@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --color-bg: #090b13;
   --color-bg-alt: #111523;
   --color-surface: rgba(255, 255, 255, 0.04);
@@ -1506,4 +1506,217 @@ body[data-page="home"] main {
     flex-direction: column;
     align-items: stretch;
   }
+}
+.performers-hero {
+  position: relative;
+  min-height: 65vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: linear-gradient(200deg, rgba(6, 8, 15, 0.75), rgba(6, 8, 15, 0.92)),
+    url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1920&q=80') center/cover;
+}
+
+.performers-hero__content {
+  max-width: 720px;
+  display: grid;
+  gap: 1rem;
+}
+
+.performers-hero__title {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: clamp(2.4rem, 6vw, 3.5rem);
+}
+
+.performers-hero__subtitle {
+  margin: 0;
+  color: rgba(247, 247, 251, 0.72);
+  line-height: 1.7;
+}
+
+.performers-section {
+  padding: 6rem 1.5rem;
+}
+
+.performers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2.5rem;
+}
+
+.performers-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 28px;
+  padding: 2.5rem;
+  display: grid;
+  gap: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.performers-panel__title {
+  margin: 0;
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  font-size: 1.8rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.performers-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+  color: rgba(247, 247, 251, 0.75);
+}
+
+.performers-list i {
+  color: var(--color-accent);
+  margin-right: 0.8rem;
+}
+
+.performers-contact p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(247, 247, 251, 0.72);
+}
+
+.performers-form {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.performers-field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.performers-field label {
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(247, 247, 251, 0.6);
+}
+
+.performers-field input,
+.performers-field textarea {
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(247, 247, 251, 0.18);
+  background: rgba(9, 11, 19, 0.85);
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.performers-field textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.performers-form__actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.performers-form__feedback {
+  min-height: 1.2rem;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+}
+
+.performers-faq {
+  padding: 5rem 1.5rem 6rem;
+  background: linear-gradient(180deg, rgba(6, 8, 15, 0.95), rgba(6, 8, 15, 0.88));
+}
+
+.performers-faq__inner {
+  display: grid;
+  gap: 2rem;
+}
+
+.performers-list--columns {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+@media (max-width: 640px) {
+  .performers-panel {
+    padding: 2rem;
+  }
+  .performers-form__actions {
+    justify-content: stretch;
+  }
+  .performers-form__actions .button {
+    width: 100%;
+  }
+}
+
+.admin-performer-card {
+  background: rgba(9, 11, 19, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-performer-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.admin-performer-card__header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.admin-performer-card__meta {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(247, 247, 251, 0.65);
+}
+
+.admin-performer-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-performer-card__details {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+}
+
+.admin-performer-card__details div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.admin-performer-card__details dt {
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(247, 247, 251, 0.6);
+}
+
+.admin-performer-card__details dd {
+  margin: 0;
+}
+
+.admin-performer-card__message {
+  margin: 0;
+  color: rgba(247, 247, 251, 0.78);
+  line-height: 1.6;
+  white-space: pre-wrap;
 }

@@ -1,23 +1,23 @@
 {
-  "name": "blackbear",
-  "version": "1.0.0",
-  "description": "Blackbear Wisbech multi-page experience with admin-managed events and gallery",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
-  },
-  "keywords": [
-    "pub",
-    "restaurant",
-    "events",
-    "gallery"
-  ],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^5.1.0",
-    "multer": "^2.0.2",
-    "uuid": "^13.0.0"
-  }
+    "name":  "blackbear",
+    "version":  "1.0.0",
+    "description":  "Blackbear Wisbech multi-page experience with admin-managed events and gallery",
+    "main":  "server.js",
+    "scripts":  {
+                    "start":  "node server.js",
+                    "dev":  "node server.js"
+                },
+    "keywords":  [
+                     "pub",
+                     "restaurant",
+                     "events",
+                     "gallery"
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "dependencies":  {
+                         "express":  "^5.1.0",
+                         "multer":  "^2.0.2",
+                         "uuid":  "^13.0.0"
+                     }
 }

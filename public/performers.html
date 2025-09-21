@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perform at Blackbear Wisbech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css" rel="stylesheet" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body data-page="performers">
+    <header>
+      <nav class="navbar">
+        <a href="index.html" class="navbar__brand" aria-label="Blackbear Wisbech home">
+          <span class="navbar__brand-logo">BB</span>
+          <span>Blackbear<br />Wisbech</span>
+        </a>
+        <button class="navbar__toggle" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="navbar__menu">
+                    <ul>
+            <li><a class="nav-link" data-nav="home" href="index.html">Home</a></li>
+            <li class="has-dropdown">
+              <a class="nav-link" data-nav="menu" href="menu.html">Menu <i class="fa-solid fa-chevron-down" aria-hidden="true"></i></a>
+              <div class="nav-dropdown">
+                <a href="menu.html#food"><i class="fa-solid fa-bread-slice"></i> Food</a>
+                <a href="menu.html#drink"><i class="fa-solid fa-martini-glass"></i> Drink</a>
+              </div>
+            </li>
+            <li><a class="nav-link" data-nav="view-space" href="view-space.html">View Space</a></li>
+            <li><a class="nav-link" data-nav="events" href="events.html">Events</a></li>
+            <li><a class="nav-link" data-nav="performers" href="performers.html">Performers</a></li>
+          </ul>
+          <div class="navbar__socials">
+            <a href="https://www.tiktok.com" aria-label="TikTok" target="_blank" rel="noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.instagram.com" aria-label="Instagram" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.facebook.com" aria-label="Facebook" target="_blank" rel="noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="performers-hero">
+        <div class="performers-hero__content" data-animate>
+          <span class="section__eyebrow">Perform at Blackbear</span>
+          <h1 class="performers-hero__title">Let the Fenland hear you</h1>
+          <p class="performers-hero__subtitle">We curate live music, comedy, spoken word, and unique experiences every season. Tell us about your act and we will be in touch.</p>
+        </div>
+      </section>
+
+      <section class="section performers-section">
+        <div class="section__inner performers-grid">
+          <article class="performers-panel" data-animate>
+            <h2 class="performers-panel__title"><i class="fa-solid fa-sparkles"></i> What we look for</h2>
+            <p>Blackbear Wisbech pairs intimate lighting with refined sound. We welcome:</p>
+            <ul class="performers-list">
+              <li><i class="fa-solid fa-music"></i> Acoustic duos, jazz collectives, soul and R&amp;B artists</li>
+              <li><i class="fa-solid fa-microphone-lines"></i> Spoken word, comedy, storytelling evenings</li>
+              <li><i class="fa-solid fa-wand-magic-sparkles"></i> Specialty performers that elevate private bookings</li>
+            </ul>
+            <p>If your act sets the right tone for a discerning crowd, we want to meet you.</p>
+            <div class="performers-contact">
+              <p><i class="fa-solid fa-envelope"></i> Bookings team: <a href="mailto:bookings@blackbearwisbech.co.uk">bookings@blackbearwisbech.co.uk</a></p>
+              <p><i class="fa-solid fa-phone"></i> Venue line: <a href="tel:+441945123456">01945 123 456</a></p>
+            </div>
+          </article>
+          <article class="performers-panel" data-animate>
+            <h2 class="performers-panel__title"><i class="fa-solid fa-pen-to-square"></i> Submit your act</h2>
+            <form class="performers-form" id="performersForm" novalidate>
+              <div class="performers-field">
+                <label for="performerName">Name / Act</label>
+                <input type="text" id="performerName" name="name" placeholder="Stage name or group" required />
+              </div>
+              <div class="performers-field">
+                <label for="performerEmail">Email</label>
+                <input type="email" id="performerEmail" name="email" placeholder="you@example.com" required />
+              </div>
+              <div class="performers-field">
+                <label for="performerAct">Act type</label>
+                <input type="text" id="performerAct" name="actType" placeholder="E.g. Jazz trio, stand-up comedy" />
+              </div>
+              <div class="performers-field">
+                <label for="performerAvailability">Preferred dates</label>
+                <input type="text" id="performerAvailability" name="availability" placeholder="Share dates or a range" />
+              </div>
+              <div class="performers-field">
+                <label for="performerPromo">Promo link</label>
+                <input type="url" id="performerPromo" name="promoLink" placeholder="Link to EPK, video, or social" />
+              </div>
+              <div class="performers-field">
+                <label for="performerMessage">Tell us about your set</label>
+                <textarea id="performerMessage" name="message" rows="5" placeholder="Set length, tech needs, audience fit" required></textarea>
+              </div>
+              <div class="performers-form__actions">
+                <button class="button" type="submit"><i class="fa-solid fa-paper-plane"></i> Send proposal</button>
+              </div>
+              <p class="performers-form__feedback" id="performersFeedback" role="status"></p>
+            </form>
+          </article>
+        </div>
+      </section>
+
+      <section class="performers-faq section">
+        <div class="section__inner performers-faq__inner" data-animate>
+          <h2 class="performers-panel__title"><i class="fa-solid fa-circle-question"></i> Quick notes</h2>
+          <ul class="performers-list performers-list--columns">
+            <li><i class="fa-solid fa-volume-high"></i> In-house engineer and PA available on request.</li>
+            <li><i class="fa-solid fa-clock"></i> Typical sets are 45-60 minutes with optional encores.</li>
+            <li><i class="fa-solid fa-utensils"></i> Artist hospitality provided for evening shows.</li>
+            <li><i class="fa-solid fa-file-contract"></i> Contracts &amp; tech spec shared once dates are confirmed.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <div class="navbar__brand" aria-hidden="true">
+            <span class="navbar__brand-logo">BB</span>
+            <span>Blackbear<br />Wisbech</span>
+          </div>
+          <p><i class="fa-solid fa-map-marker-alt"></i> 3 Old Market, Wisbech PE13 1NB</p>
+          <p><i class="fa-solid fa-clock"></i> Open Tuesday to Sunday from midday</p>
+        </div>
+        <div>
+          <p class="footer__title">Explore</p>
+          <ul class="footer__links">
+            <li><a href="menu.html"><i class="fa-solid fa-book-open"></i> Our Menus</a></li>
+            <li><a href="events.html"><i class="fa-solid fa-calendar-check"></i> Events Calendar</a></li>
+            <li><a href="view-space.html"><i class="fa-solid fa-image"></i> View The Space</a></li>
+            <li><a href="performers.html"><i class="fa-solid fa-star"></i> Performers</a></li>
+            <li><a href="admin.html"><i class="fa-solid fa-key"></i> Admin Portal</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer__title">Connect</p>
+          <ul class="footer__links">
+            <li><a href="mailto:reservations@blackbearwisbech.co.uk"><i class="fa-solid fa-envelope"></i> reservations@blackbearwisbech.co.uk</a></li>
+            <li><a href="tel:+441945123456"><i class="fa-solid fa-phone"></i> 01945 123 456</a></li>
+            <li><a href="https://www.instagram.com" target="_blank" rel="noreferrer"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.facebook.com" target="_blank" rel="noreferrer"><i class="fa-brands fa-facebook"></i> Facebook</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer__baseline">&copy; <span id="year"></span> Blackbear Wisbech. All rights reserved.</p>
+    </footer>
+
+    <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/performers.js"></script>
+  </body>
+</html>
+

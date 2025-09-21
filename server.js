@@ -37,6 +37,7 @@ const upload = multer({
 
 const eventsStore = new DataStore('events.json');
 const galleryStore = new DataStore('gallery.json');
+const performersStore = new DataStore('performers.json');
 
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: true }));
@@ -76,6 +77,7 @@ app.post('/api/admin/logout', requireAdmin, (req, res) => {
   res.status(204).end();
 });
 
+// Events API
 app.get('/api/events', asyncHandler(async (req, res) => {
   const events = await eventsStore.read();
   const sorted = events.slice().sort((a, b) => new Date(a.dateTime) - new Date(b.dateTime));
@@ -151,6 +153,7 @@ app.delete('/api/events/:id', requireAdmin, asyncHandler(async (req, res) => {
   res.json(removed);
 }));
 
+// Gallery API
 app.get('/api/gallery', asyncHandler(async (req, res) => {
   const gallery = await galleryStore.read();
   res.json(gallery);
@@ -206,11 +209,54 @@ app.delete('/api/gallery/:id', requireAdmin, asyncHandler(async (req, res) => {
   res.json(removed);
 }));
 
+// Performer enquiries
+app.post('/api/performers', asyncHandler(async (req, res) => {
+  const { name, email, actType, availability, promoLink, message } = req.body || {};
+  if (!name || !email || !message) {
+    return res.status(400).json({ message: 'Name, email, and message are required.' });
+  }
+
+  const performers = await performersStore.read();
+  const entry = {
+    id: uuidv4(),
+    name: name.trim(),
+    email: email.trim(),
+    actType: (actType || '').trim(),
+    availability: (availability || '').trim(),
+    promoLink: (promoLink || '').trim(),
+    message: message.trim(),
+    createdAt: new Date().toISOString(),
+  };
+
+  performers.unshift(entry);
+  await performersStore.write(performers);
+  res.status(201).json({ message: 'Thank you! We will be in touch soon.' });
+}));
+
+app.get('/api/performers', requireAdmin, asyncHandler(async (req, res) => {
+  const performers = await performersStore.read();
+  res.json(performers);
+}));
+
+app.delete('/api/performers/:id', requireAdmin, asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const performers = await performersStore.read();
+  const index = performers.findIndex((item) => item.id === id);
+  if (index === -1) {
+    return res.status(404).json({ message: 'Entry not found.' });
+  }
+
+  const [removed] = performers.splice(index, 1);
+  await performersStore.write(performers);
+  res.json(removed);
+}));
+
 const pageRoutes = {
   '/': 'index.html',
   '/menu': 'menu.html',
   '/events': 'events.html',
   '/view-space': 'view-space.html',
+  '/performers': 'performers.html',
   '/admin': 'admin.html',
 };
 

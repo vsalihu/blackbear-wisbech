@@ -1,4 +1,4 @@
-const state = {
+﻿const state = {
   editingEventId: null,
   token: null,
 };
@@ -24,6 +24,7 @@ const elements = {
   galleryTable: document.getElementById('galleryTable'),
   galleryUpload: document.getElementById('galleryUpload'),
   galleryImageUrl: document.getElementById('galleryImage'),
+  performerTable: document.getElementById('performerTable'),
 };
 
 const saveToken = (token) => {
@@ -197,18 +198,60 @@ const renderGalleryTable = (items) => {
   container.appendChild(fragment);
 };
 
-const loadEvents = async () => {
-  const events = await request('/api/events');
-  renderEventsTable(events);
+const renderPerformersTable = (items) => {
+  const container = elements.performerTable;
+  if (!container) return;
+  container.innerHTML = '';
+
+  if (!items.length) {
+    container.innerHTML = '<p><i class="fa-solid fa-circle-info"></i> No enquiries yet. When performers reach out they will appear here.</p>';
+    return;
+  }
+
+  const fragment = document.createDocumentFragment();
+  items.forEach((item) => {
+    const created = new Date(item.createdAt || Date.now()).toLocaleString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    const card = document.createElement('article');
+    card.className = 'admin-performer-card';
+    card.dataset.id = item.id;
+    card.innerHTML = `
+      <header class="admin-performer-card__header">
+        <div>
+          <h4>${item.name}</h4>
+          <p class="admin-performer-card__meta"><i class="fa-solid fa-calendar-plus"></i> ${created}</p>
+        </div>
+        <div class="admin-performer-card__actions">
+          <a class="admin-icon-button" href="mailto:${item.email}" title="Reply"><i class="fa-solid fa-envelope"></i> Email</a>
+          <button class="admin-icon-button admin-icon-button--danger" data-action="delete" data-id="${item.id}"><i class="fa-solid fa-trash"></i> Remove</button>
+        </div>
+      </header>
+      <dl class="admin-performer-card__details">
+        <div><dt>Email</dt><dd><a href="mailto:${item.email}">${item.email}</a></dd></div>
+        ${item.actType ? `<div><dt>Act</dt><dd>${item.actType}</dd></div>` : ''}
+        ${item.availability ? `<div><dt>Availability</dt><dd>${item.availability}</dd></div>` : ''}
+        ${item.promoLink ? `<div><dt>Promo</dt><dd><a href="${item.promoLink}" target="_blank" rel="noreferrer">${item.promoLink}</a></dd></div>` : ''}
+      </dl>
+      <p class="admin-performer-card__message">${item.message}</p>
+    `;
+    fragment.appendChild(card);
+  });
+
+  container.appendChild(fragment);
 };
 
-const loadGallery = async () => {
-  const gallery = await request('/api/gallery');
-  renderGalleryTable(gallery);
-};
+const loadEvents = () => request('/api/events').then(renderEventsTable);
+const loadGallery = () => request('/api/gallery').then(renderGalleryTable);
+const loadPerformers = () => request('/api/performers').then(renderPerformersTable);
 
 const bootstrapData = async () => {
-  await Promise.all([loadEvents(), loadGallery()]);
+  await Promise.all([loadEvents(), loadGallery(), loadPerformers()]);
 };
 
 const resetEventForm = () => {
@@ -350,6 +393,25 @@ const handleGalleryTableClick = async (event) => {
   }
 };
 
+const handlePerformerTableClick = async (event) => {
+  const button = event.target.closest('button[data-action]');
+  if (!button) return;
+  const { action, id } = button.dataset;
+  if (!id) return;
+
+  if (action === 'delete') {
+    const confirmed = window.confirm('Remove this enquiry?');
+    if (!confirmed) return;
+
+    try {
+      await request(`/api/performers/${id}`, { method: 'DELETE' });
+      await loadPerformers();
+    } catch (error) {
+      alert(`Unable to remove the enquiry. ${error.message}`);
+    }
+  }
+};
+
 const handleLoginSubmit = async (event) => {
   event.preventDefault();
   const password = elements.passwordInput.value.trim();
@@ -392,11 +454,10 @@ const handleLogout = async () => {
     clearToken();
     showAuthOverlay();
     resetEventForm();
-    if (elements.galleryForm) {
-      elements.galleryForm.reset();
-    }
-    if (elements.eventsTable) elements.eventsTable.innerHTML = '';
+    if (elements.galleryForm) elements.galleryForm.reset();
     if (elements.galleryTable) elements.galleryTable.innerHTML = '';
+    if (elements.eventsTable) elements.eventsTable.innerHTML = '';
+    if (elements.performerTable) elements.performerTable.innerHTML = '';
   }
 };
 
@@ -444,15 +505,13 @@ const bindEvents = () => {
   if (elements.galleryTable) {
     elements.galleryTable.addEventListener('click', handleGalleryTableClick);
   }
+
+  if (elements.performerTable) {
+    elements.performerTable.addEventListener('click', handlePerformerTableClick);
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   bindEvents();
   initAdmin();
 });
-
-
-
-
-
-
