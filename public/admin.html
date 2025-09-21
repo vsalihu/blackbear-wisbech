@@ -43,62 +43,100 @@
     </header>
 
     <main class="admin-page">
-      <div class="admin-layout" data-animate>
-        <section class="admin-card" id="eventsAdmin">
-          <header class="admin-card__header">
-            <h1 class="admin-card__title">
-              <span class="admin-card__title-icon"><i class="fa-solid fa-calendar-check"></i></span>
-              <span class="admin-card__title-text">Manage events</span>
-            </h1>
-            <p><i class="fa-solid fa-bullhorn"></i> Keep the calendar fresh for guests visiting the events page.</p>
-          </header>
-          <form class="admin-form" id="eventForm">
-            <input type="hidden" name="id" id="eventId" />
-            <div class="admin-form__group">
-              <label for="eventTitle"><i class="fa-solid fa-heading"></i> Title</label>
-              <input type="text" id="eventTitle" name="title" placeholder="Live Jazz Night" required />
-            </div>
-            <div class="admin-form__group">
-              <label for="eventDescription"><i class="fa-solid fa-align-left"></i> Description</label>
-              <textarea id="eventDescription" name="description" rows="3" placeholder="Describe what makes this event unmissable." required></textarea>
-            </div>
-            <div class="admin-form__group">
-              <label for="eventDate"><i class="fa-solid fa-calendar-day"></i> Date</label>
-              <input type="date" id="eventDate" name="date" required />
-            </div>
-            <div class="admin-form__group">
-              <label for="eventTime"><i class="fa-solid fa-clock"></i> Time</label>
-              <input type="time" id="eventTime" name="time" required />
-            </div>
-            <div class="admin-actions">
-              <button class="button" type="submit"><i class="fa-solid fa-calendar-plus"></i> <span id="eventSubmitLabel">Add Event</span></button>
-            </div>
+      <div class="admin-auth admin-auth--visible" id="adminAuth" aria-hidden="false">
+        <div class="admin-auth__dialog">
+          <h1 class="admin-auth__title">Blackbear Admin</h1>
+          <p class="admin-auth__subtitle">Enter the passphrase to manage events and gallery content.</p>
+          <form id="adminLoginForm" class="admin-auth__form">
+            <label for="adminPassword" class="admin-auth__label">Passphrase</label>
+            <input type="password" id="adminPassword" name="password" autocomplete="current-password" placeholder="Enter password" required />
+            <button type="submit" class="button"><i class="fa-solid fa-unlock"></i> Unlock</button>
+            <p class="admin-auth__error" id="adminAuthError" role="alert"></p>
           </form>
-          <div class="admin-table" id="eventsTable"></div>
+        </div>
+      </div>
+
+      <div class="admin-shell" id="adminShell" aria-hidden="true">
+        <div class="admin-shell__top">
+          <div>
+            <p class="admin-shell__eyebrow">Control centre</p>
+            <h1 class="admin-shell__title">Blackbear CMS</h1>
+            <p class="admin-shell__subtitle">Schedule upcoming experiences and refresh the gallery in seconds.</p>
+          </div>
+          <div class="admin-shell__actions">
+            <button type="button" class="button button--ghost" id="adminLogout"><i class="fa-solid fa-right-from-bracket"></i> Sign out</button>
+          </div>
+        </div>
+
+        <section class="admin-section" id="eventsAdmin">
+          <div class="admin-section__intro">
+            <h2 class="admin-section__title"><i class="fa-solid fa-calendar-days"></i> Events calendar</h2>
+            <p class="admin-section__description">Create, edit, or retire nights from the Blackbear diary. Guests see the most recent details instantly on the public site.</p>
+          </div>
+          <div class="admin-section__grid">
+            <form class="admin-panel admin-panel--form" id="eventForm">
+              <h3 class="admin-panel__title"><i class="fa-solid fa-pen-to-square"></i> Event details</h3>
+              <input type="hidden" name="id" id="eventId" />
+              <div class="admin-field">
+                <label for="eventTitle">Title</label>
+                <input type="text" id="eventTitle" name="title" placeholder="Harvest Feast" required />
+              </div>
+              <div class="admin-field">
+                <label for="eventDescription">Description</label>
+                <textarea id="eventDescription" name="description" rows="3" placeholder="Describe the experience guests can expect" required></textarea>
+              </div>
+              <div class="admin-field admin-field--row">
+                <div>
+                  <label for="eventDate">Date</label>
+                  <input type="date" id="eventDate" name="date" required />
+                </div>
+                <div>
+                  <label for="eventTime">Time</label>
+                  <input type="time" id="eventTime" name="time" required />
+                </div>
+              </div>
+              <div class="admin-panel__actions">
+                <button class="button" type="submit"><i class="fa-solid fa-floppy-disk"></i> <span id="eventSubmitLabel">Add event</span></button>
+                <button class="button button--ghost" type="button" id="eventResetButton"><i class="fa-solid fa-rotate-left"></i> Reset form</button>
+              </div>
+            </form>
+            <div class="admin-panel admin-panel--list">
+              <h3 class="admin-panel__title"><i class="fa-solid fa-list"></i> Scheduled events</h3>
+              <div class="admin-panel__body" id="eventsTable"></div>
+            </div>
+          </div>
         </section>
 
-        <section class="admin-card" id="galleryAdmin">
-          <header class="admin-card__header">
-            <h2 class="admin-card__title">
-              <span class="admin-card__title-icon"><i class="fa-solid fa-image"></i></span>
-              <span class="admin-card__title-text">Manage gallery</span>
-            </h2>
-            <p><i class="fa-solid fa-camera"></i> Add photos to the View Space page using hosted image URLs.</p>
-          </header>
-          <form class="admin-form" id="galleryForm">
-            <div class="admin-form__group">
-              <label for="galleryImage"><i class="fa-solid fa-link"></i> Image URL</label>
-              <input type="url" id="galleryImage" name="imageUrl" placeholder="https://" required />
+        <section class="admin-section" id="galleryAdmin">
+          <div class="admin-section__intro">
+            <h2 class="admin-section__title"><i class="fa-solid fa-photo-film"></i> Gallery showcase</h2>
+            <p class="admin-section__description">Upload fresh photography straight from your phone or link to approved campaign imagery.</p>
+          </div>
+          <div class="admin-section__grid">
+            <form class="admin-panel admin-panel--form" id="galleryForm">
+              <h3 class="admin-panel__title"><i class="fa-solid fa-image"></i> Add a photo</h3>
+              <div class="admin-field">
+                <label for="galleryUpload">Upload from your device</label>
+                <input type="file" id="galleryUpload" name="image" accept="image/*" capture="environment" />
+                <p class="admin-hint"><i class="fa-solid fa-mobile-screen"></i> Pick a photo or take one now. Supported up to 8&nbsp;MB.</p>
+              </div>
+              <div class="admin-field">
+                <label for="galleryImage">Or paste a hosted link</label>
+                <input type="url" id="galleryImage" name="imageUrl" placeholder="https://" />
+              </div>
+              <div class="admin-field">
+                <label for="galleryTitle">Caption</label>
+                <input type="text" id="galleryTitle" name="title" placeholder="E.g. Bar at golden hour" />
+              </div>
+              <div class="admin-panel__actions">
+                <button class="button" type="submit"><i class="fa-solid fa-plus"></i> Add to gallery</button>
+              </div>
+            </form>
+            <div class="admin-panel admin-panel--list">
+              <h3 class="admin-panel__title"><i class="fa-solid fa-images"></i> Current imagery</h3>
+              <div class="admin-panel__body" id="galleryTable"></div>
             </div>
-            <div class="admin-form__group">
-              <label for="galleryTitle"><i class="fa-solid fa-pen"></i> Caption</label>
-              <input type="text" id="galleryTitle" name="title" placeholder="Bar at golden hour (optional)" />
-            </div>
-            <div class="admin-actions">
-              <button class="button" type="submit"><i class="fa-solid fa-plus"></i> Add Image</button>
-            </div>
-          </form>
-          <div class="admin-table" id="galleryTable"></div>
+          </div>
         </section>
       </div>
     </main>
@@ -132,7 +170,7 @@
           </ul>
         </div>
       </div>
-      <p class="footer__baseline">© <span id="year"></span> Blackbear Wisbech. All rights reserved.</p>
+      <p class="footer__baseline">&copy; <span id="year"></span> Blackbear Wisbech. All rights reserved.</p>
     </footer>
 
     <script type="module" src="assets/js/main.js"></script>

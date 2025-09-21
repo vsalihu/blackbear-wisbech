@@ -1,20 +1,100 @@
-﻿const state = {
+const state = {
   editingEventId: null,
+  token: null,
 };
 
-const fetchJSON = async (url, options = {}) => {
-  const response = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    ...options,
-  });
+const STORAGE_KEY = 'blackbearAdminToken';
+
+const API_BASE =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3000'
+    : 'https://blackbear-api.onrender.com'; // replace with your API URL
+
+const elements = {
+  authOverlay: document.getElementById('adminAuth'),
+  authError: document.getElementById('adminAuthError'),
+  shell: document.getElementById('adminShell'),
+  loginForm: document.getElementById('adminLoginForm'),
+  passwordInput: document.getElementById('adminPassword'),
+  logoutButton: document.getElementById('adminLogout'),
+  eventForm: document.getElementById('eventForm'),
+  eventResetButton: document.getElementById('eventResetButton'),
+  eventsTable: document.getElementById('eventsTable'),
+  galleryForm: document.getElementById('galleryForm'),
+  galleryTable: document.getElementById('galleryTable'),
+  galleryUpload: document.getElementById('galleryUpload'),
+  galleryImageUrl: document.getElementById('galleryImage'),
+};
+
+const saveToken = (token) => {
+  state.token = token;
+  localStorage.setItem(STORAGE_KEY, token);
+};
+
+const clearToken = () => {
+  state.token = null;
+  localStorage.removeItem(STORAGE_KEY);
+};
+
+const showAuthOverlay = () => {
+  elements.authOverlay.classList.add('admin-auth--visible');
+  elements.shell.setAttribute('aria-hidden', 'true');
+};
+
+const hideAuthOverlay = () => {
+  elements.authOverlay.classList.remove('admin-auth--visible');
+  elements.shell.removeAttribute('aria-hidden');
+};
+
+const handleUnauthorized = () => {
+  clearToken();
+  showAuthOverlay();
+  if (elements.authError) {
+    elements.authError.textContent = 'Session expired. Please sign in again.';
+  }
+  if (elements.passwordInput) {
+    elements.passwordInput.focus();
+  }
+};
+
+const request = async (path, { method = 'GET', body, isForm = false } = {}) => {
+  const headers = {};
+  if (state.token) {
+    headers['x-admin-token'] = state.token;
+  }
+
+  const options = { method, headers };
+
+  if (isForm) {
+    options.body = body;
+  } else if (body !== undefined) {
+    headers['Content-Type'] = 'application/json';
+    options.body = JSON.stringify(body);
+  }
+
+  const url = `${API_BASE}${path}`;
+  const response = await fetch(url, options);
+
+  if (response.status === 401) {
+    handleUnauthorized();
+    throw new Error('Unauthorized');
+  }
+
   if (!response.ok) {
     const message = await response.text();
     throw new Error(message || 'Request failed');
   }
-  if (response.status === 204) return null;
-  return response.json();
+
+  if (response.status === 204) {
+    return null;
+  }
+
+  const contentType = response.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
+    return response.json();
+  }
+
+  return response.text();
 };
 
 const getEventIconClass = (title = '') => {
@@ -84,7 +164,7 @@ const buildGalleryRow = (item) => {
 };
 
 const renderEventsTable = (events) => {
-  const container = document.getElementById('eventsTable');
+  const container = elements.eventsTable;
   if (!container) return;
   container.innerHTML = '';
 
@@ -103,12 +183,12 @@ const renderEventsTable = (events) => {
 };
 
 const renderGalleryTable = (items) => {
-  const container = document.getElementById('galleryTable');
+  const container = elements.galleryTable;
   if (!container) return;
   container.innerHTML = '';
 
   if (!items.length) {
-    container.innerHTML = '<p><i class="fa-solid fa-circle-info"></i> The gallery is empty. Add an image URL to populate the View Space.</p>';
+    container.innerHTML = '<p><i class="fa-solid fa-circle-info"></i> Add a photo to populate the View Space gallery.</p>';
     return;
   }
 
@@ -118,34 +198,43 @@ const renderGalleryTable = (items) => {
 };
 
 const loadEvents = async () => {
-  const events = await fetchJSON('/api/events');
+  const events = await request('/api/events');
   renderEventsTable(events);
 };
 
 const loadGallery = async () => {
-  const gallery = await fetchJSON('/api/gallery');
+  const gallery = await request('/api/gallery');
   renderGalleryTable(gallery);
 };
 
+const bootstrapData = async () => {
+  await Promise.all([loadEvents(), loadGallery()]);
+};
+
 const resetEventForm = () => {
-  const form = document.getElementById('eventForm');
-  if (!form) return;
-  form.reset();
+  if (!elements.eventForm) return;
+  elements.eventForm.reset();
+  const hiddenId = document.getElementById('eventId');
+  if (hiddenId) hiddenId.value = '';
   state.editingEventId = null;
-  document.getElementById('eventSubmitLabel').textContent = 'Add Event';
+  const submitLabel = document.getElementById('eventSubmitLabel');
+  if (submitLabel) {
+    submitLabel.textContent = 'Add event';
+  }
 };
 
 const populateEventForm = (event) => {
-  const form = document.getElementById('eventForm');
-  if (!form) return;
+  if (!elements.eventForm) return;
   state.editingEventId = event.id;
   document.getElementById('eventId').value = event.id;
   document.getElementById('eventTitle').value = event.title;
   document.getElementById('eventDescription').value = event.description;
   document.getElementById('eventDate').value = event.date;
   document.getElementById('eventTime').value = event.time;
-  document.getElementById('eventSubmitLabel').textContent = 'Update Event';
-  window.scrollTo({ top: form.offsetTop - 120, behavior: 'smooth' });
+  const submitLabel = document.getElementById('eventSubmitLabel');
+  if (submitLabel) {
+    submitLabel.textContent = 'Update event';
+  }
 };
 
 const handleEventFormSubmit = async (event) => {
@@ -156,14 +245,14 @@ const handleEventFormSubmit = async (event) => {
 
   try {
     if (state.editingEventId) {
-      await fetchJSON(`/api/events/${state.editingEventId}`, {
+      await request(`/api/events/${state.editingEventId}`, {
         method: 'PUT',
-        body: JSON.stringify(payload),
+        body: payload,
       });
     } else {
-      await fetchJSON('/api/events', {
+      await request('/api/events', {
         method: 'POST',
-        body: JSON.stringify(payload),
+        body: payload,
       });
     }
 
@@ -183,10 +272,11 @@ const handleEventsTableClick = async (event) => {
 
   if (action === 'edit') {
     try {
-      const events = await fetchJSON('/api/events');
+      const events = await request('/api/events');
       const current = events.find((item) => item.id === id);
       if (current) {
         populateEventForm(current);
+        window.scrollTo({ top: elements.eventForm.offsetTop - 120, behavior: 'smooth' });
       }
     } catch (error) {
       alert(`Unable to fetch event details. ${error.message}`);
@@ -198,7 +288,7 @@ const handleEventsTableClick = async (event) => {
     if (!confirmDelete) return;
 
     try {
-      await fetchJSON(`/api/events/${id}`, { method: 'DELETE' });
+      await request(`/api/events/${id}`, { method: 'DELETE' });
       await loadEvents();
       if (state.editingEventId === id) {
         resetEventForm();
@@ -213,14 +303,30 @@ const handleGalleryFormSubmit = async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   const formData = new FormData(form);
-  const payload = Object.fromEntries(formData.entries());
+  const fileInput = elements.galleryUpload;
+  const file = fileInput && fileInput.files ? fileInput.files[0] : null;
+  const title = (formData.get('title') || '').trim();
+  const imageUrl = (formData.get('imageUrl') || '').trim();
 
   try {
-    await fetchJSON('/api/gallery', {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    });
+    if (file) {
+      const uploadData = new FormData();
+      uploadData.append('image', file);
+      if (title) uploadData.append('title', title);
+      if (imageUrl) uploadData.append('imageUrl', imageUrl);
+      await request('/api/gallery', { method: 'POST', body: uploadData, isForm: true });
+    } else if (imageUrl) {
+      await request('/api/gallery', {
+        method: 'POST',
+        body: { imageUrl, title },
+      });
+    } else {
+      alert('Please upload a photo or provide an image link.');
+      return;
+    }
+
     form.reset();
+    if (fileInput) fileInput.value = '';
     await loadGallery();
   } catch (error) {
     alert(`We could not add the image. ${error.message}`);
@@ -237,35 +343,116 @@ const handleGalleryTableClick = async (event) => {
   if (!confirmDelete) return;
 
   try {
-    await fetchJSON(`/api/gallery/${id}`, { method: 'DELETE' });
+    await request(`/api/gallery/${id}`, { method: 'DELETE' });
     await loadGallery();
   } catch (error) {
     alert(`Unable to remove the image. ${error.message}`);
   }
 };
 
-document.addEventListener('DOMContentLoaded', async () => {
-  const eventForm = document.getElementById('eventForm');
-  const galleryForm = document.getElementById('galleryForm');
-  const eventsTable = document.getElementById('eventsTable');
-  const galleryTable = document.getElementById('galleryTable');
-
-  if (eventForm) {
-    eventForm.addEventListener('submit', handleEventFormSubmit);
-  }
-  if (eventsTable) {
-    eventsTable.addEventListener('click', handleEventsTableClick);
-  }
-  if (galleryForm) {
-    galleryForm.addEventListener('submit', handleGalleryFormSubmit);
-  }
-  if (galleryTable) {
-    galleryTable.addEventListener('click', handleGalleryTableClick);
+const handleLoginSubmit = async (event) => {
+  event.preventDefault();
+  const password = elements.passwordInput.value.trim();
+  if (!password) {
+    elements.authError.textContent = 'Password is required.';
+    return;
   }
 
   try {
-    await Promise.all([loadEvents(), loadGallery()]);
+    const response = await fetch(`${API_BASE}/api/admin/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
+    });
+
+    if (!response.ok) {
+      const message = await response.text();
+      throw new Error(message || 'Invalid password');
+    }
+
+    const data = await response.json();
+    saveToken(data.token);
+    elements.loginForm.reset();
+    elements.authError.textContent = '';
+    hideAuthOverlay();
+    await bootstrapData();
   } catch (error) {
-    console.error(error);
+    elements.authError.textContent = error.message || 'Unable to authenticate.';
   }
+};
+
+const handleLogout = async () => {
+  try {
+    if (state.token) {
+      await request('/api/admin/logout', { method: 'POST' });
+    }
+  } catch (error) {
+    console.warn('Logout request failed', error);
+  } finally {
+    clearToken();
+    showAuthOverlay();
+    resetEventForm();
+    if (elements.galleryForm) {
+      elements.galleryForm.reset();
+    }
+    if (elements.eventsTable) elements.eventsTable.innerHTML = '';
+    if (elements.galleryTable) elements.galleryTable.innerHTML = '';
+  }
+};
+
+const initAdmin = async () => {
+  const storedToken = localStorage.getItem(STORAGE_KEY);
+  if (storedToken) {
+    state.token = storedToken;
+    try {
+      hideAuthOverlay();
+      await bootstrapData();
+      return;
+    } catch (error) {
+      handleUnauthorized();
+    }
+  }
+
+  showAuthOverlay();
+};
+
+const bindEvents = () => {
+  if (elements.loginForm) {
+    elements.loginForm.addEventListener('submit', handleLoginSubmit);
+  }
+
+  if (elements.logoutButton) {
+    elements.logoutButton.addEventListener('click', handleLogout);
+  }
+
+  if (elements.eventForm) {
+    elements.eventForm.addEventListener('submit', handleEventFormSubmit);
+  }
+
+  if (elements.eventResetButton) {
+    elements.eventResetButton.addEventListener('click', resetEventForm);
+  }
+
+  if (elements.eventsTable) {
+    elements.eventsTable.addEventListener('click', handleEventsTableClick);
+  }
+
+  if (elements.galleryForm) {
+    elements.galleryForm.addEventListener('submit', handleGalleryFormSubmit);
+  }
+
+  if (elements.galleryTable) {
+    elements.galleryTable.addEventListener('click', handleGalleryTableClick);
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  bindEvents();
+  initAdmin();
 });
+
+
+
+
+
+

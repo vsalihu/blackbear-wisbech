@@ -1,4 +1,4 @@
-﻿let animationObserver;
+let animationObserver;
 
 const initNavbar = () => {
   const header = document.querySelector('header');
@@ -146,12 +146,17 @@ const initFooterYear = () => {
 document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initActiveNav();
-  initScrollAnimations();
+  if (document.body.dataset.page !== 'admin') {
+    initScrollAnimations();
+  }
   initSmoothAnchors();
   initFooterYear();
 });
 
 document.addEventListener('reinitialize-animations', () => {
+  if (document.body.dataset.page === 'admin') {
+    return;
+  }
   observeAnimatedElements();
 });
 
